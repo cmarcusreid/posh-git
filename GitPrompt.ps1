@@ -152,13 +152,13 @@ function Write-GitStatus($status) {
         $branchStatusBackgroundColor = $s.BranchBackgroundColor
         $branchStatusForegroundColor = $s.BranchForegroundColor
 
-        if (!$status.Upstream) {
-            $branchStatusText            = $s.BranchUntrackedSymbol
-        } elseif ($status.UpstreamGone -eq $true) {
+        if ($status.UpstreamGone -eq $true) {
             # Upstream branch is gone
             $branchStatusText            = $s.BranchGoneStatusSymbol
             $branchStatusBackgroundColor = $s.BranchGoneStatusBackgroundColor
             $branchStatusForegroundColor = $s.BranchGoneStatusForegroundColor
+        } elseif (!$status.Upstream) {
+            $branchStatusText            = $s.BranchUntrackedSymbol
         } elseif ($status.BehindBy -eq 0 -and $status.AheadBy -eq 0) {
             # We are aligned with remote
             $branchStatusText            = $s.BranchIdenticalStatusToSymbol
